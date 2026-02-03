@@ -1,0 +1,225 @@
+/* ================= ROOT ================= */
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+
+
+/* ================= MAIN LAYOUT ================= */
+
+.main-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar {
+  width: 240px;
+  background: #0b1220;
+  color: white;
+  padding: 20px;
+  flex-shrink: 0;
+}
+
+.sidebar-title {
+  margin-bottom: 24px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* MOBILE SIDEBAR */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    left: -260px;
+    top: 0;
+    height: 100%;
+    z-index: 1001;
+    transition: left 0.3s ease;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+}
+
+.sidebar-close {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sidebar-close {
+    display: block;
+    background: none;
+    color: white;
+    font-size: 20px;
+    border: none;
+    margin-bottom: 16px;
+    cursor: pointer;
+  }
+}
+
+/* ================= OVERLAY ================= */
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+}
+
+/* ================= MAIN CONTENT ================= */
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.page-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px;
+  background: #020617;
+}
+
+/* ================= TOPBAR ================= */
+
+.topbar {
+  height: 60px;
+  background: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-bottom: 1px solid #1f2937;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hamburger {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: white;
+  cursor: pointer;
+}
+
+@media (min-width: 769px) {
+  .hamburger {
+    display: none;
+  }
+}
+
+/* ================= SAFETY ================= */
+
+* {
+  max-width: 100%;
+}
+/* ================= TOPBAR USER ================= */
+
+.topbar-user {
+  position: relative;
+}
+
+.user-button {
+  background: none;
+  border: 1px solid #1f2937;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.user-button:hover {
+  background: #020617;
+}
+
+.caret {
+  font-size: 10px;
+  transition: transform 0.2s ease;
+}
+
+.caret.open {
+  transform: rotate(180deg);
+}
+
+/* ================= DROPDOWN ================= */
+
+.topbar-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+
+  background: #0f172a;
+  border: 1px solid #1f2937;
+  border-radius: 8px;
+  min-width: 120px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  z-index: 2000;
+}
+
+.topbar-menu button {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 10px 14px;
+  text-align: left;
+
+  color: #e5e7eb;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.topbar-menu button:hover {
+  background: #020617;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 480px) {
+  .user-button {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+}
+
+.hover-card {
+  background: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 14px;
+  padding: 22px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.hover-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(59, 130, 246, 0.25);
+}

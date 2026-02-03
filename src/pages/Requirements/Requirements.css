@@ -1,0 +1,140 @@
+.requirements-page {
+  padding: 32px;
+  color: #e5e7eb;
+}
+
+.subtitle {
+  color: #9ca3af;
+  margin-bottom: 24px;
+}
+
+/* ===== CONTROLS ===== */
+
+.requirements-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.requirements-controls input {
+  flex: 1;
+  min-width: 240px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #1f2937;
+  background: #020617;
+  color: white;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filter-buttons button {
+  padding: 10px 14px;
+  border-radius: 6px;
+  background: #1f2937;
+  border: none;
+  color: #cbd5f5;
+  cursor: pointer;
+}
+
+.filter-buttons button.active {
+  background: #3b82f6;
+  color: white;
+}
+
+/* ===== LIST ===== */
+
+.requirements-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.requirement-card {
+  background: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  padding: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.requirement-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.4);
+}
+
+/* ===== CARD ===== */
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.req-id {
+  font-weight: 600;
+  color: #93c5fd;
+}
+
+.type-tag {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.type-tag.FR {
+  background: #1d4ed8;
+  color: white;
+}
+
+.type-tag.NFR {
+  background: #7c2d12;
+  color: #fde68a;
+}
+
+.statement {
+  color: #cbd5f5;
+  line-height: 1.5;
+  margin-bottom: 16px;
+  cursor: help;
+}
+
+/* ===== FOOTER ===== */
+
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.test-badge {
+  background: #020617;
+  border: 1px solid #1f2937;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #a5b4fc;
+}
+
+.empty {
+  color: #94a3b8;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 640px) {
+  .requirements-page {
+    padding: 20px;
+  }
+
+  .requirements-controls input {
+    min-width: 100%;
+  }
+}

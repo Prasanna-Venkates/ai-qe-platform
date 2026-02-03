@@ -1,0 +1,142 @@
+/* ================= BASE RESET (HIGH PRIORITY) ================= */
+
+.integration-container *,
+.integration-container *::before,
+.integration-container *::after {
+  box-sizing: border-box;
+}
+
+/* ================= PAGE ================= */
+
+.integration-container {
+  padding: 40px;
+  color: #ffffff;
+}
+
+/* ================= TEXT ================= */
+
+.integration-container h1 {
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: #9ca3af;
+  margin-bottom: 16px;
+  max-width: 640px;
+}
+
+.integration-note {
+  max-width: 640px;
+  margin-bottom: 28px;
+  color: #fbbf24;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ================= CARD ================= */
+
+.integration-card {
+  max-width: 520px;
+  background: #111827;
+  padding: 28px;
+  border-radius: 14px;
+  border: 1px solid #1f2937;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ================= INPUTS (FORCED) ================= */
+
+.integration-card input {
+  width: 100% !important;
+
+  height: 48px !important;           /* 🔥 FIX */
+  min-height: 48px !important;
+
+  padding: 0 16px !important;
+  line-height: 48px !important;
+
+  border-radius: 10px !important;
+  border: 1px solid #1f2937 !important;
+
+  background: #1f2937 !important;
+  color: #ffffff !important;
+
+  font-size: 14px !important;
+  font-family: inherit !important;
+
+  outline: none !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+}
+
+/* Placeholder */
+.integration-card input::placeholder {
+  color: #9ca3af;
+}
+
+/* Focus */
+.integration-card input:focus {
+  border-color: #3b82f6 !important;
+}
+
+/* ================= BUTTON (MATCH INPUT EXACTLY) ================= */
+
+.integration-card button {
+  width: 100% !important;
+
+  height: 48px !important;           /* 🔥 SAME AS INPUT */
+  min-height: 48px !important;
+
+  padding: 0 16px !important;
+  line-height: 48px !important;
+
+  border-radius: 10px !important;
+  border: none !important;
+
+  background: #3b82f6 !important;
+  color: #ffffff !important;
+
+  font-size: 14px !important;
+  font-weight: 600 !important;
+
+  cursor: pointer !important;
+}
+
+/* Hover */
+.integration-card button:hover {
+  background: #2563eb !important;
+}
+
+/* Disabled */
+.integration-card button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ================= SUCCESS BOX ================= */
+
+.success-box {
+  max-width: 520px;
+  background: #052e16;
+  border: 1px solid #22c55e;
+  padding: 20px;
+  border-radius: 12px;
+  color: #22c55e;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 640px) {
+  .integration-container {
+    padding: 24px;
+  }
+
+  .integration-card {
+    padding: 22px;
+  }
+}

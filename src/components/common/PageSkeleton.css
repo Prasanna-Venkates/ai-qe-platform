@@ -1,0 +1,40 @@
+.skeleton-page {
+    padding: 24px;
+  }
+  
+  .skeleton-header {
+    width: 240px;
+    height: 28px;
+    margin-bottom: 24px;
+    border-radius: 6px;
+    background: linear-gradient(
+      90deg,
+      #1f2937 25%,
+      #374151 37%,
+      #1f2937 63%
+    );
+    animation: shimmer 1.4s infinite;
+  }
+  
+  .skeleton-card {
+    height: 120px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    background: linear-gradient(
+      90deg,
+      #1f2937 25%,
+      #374151 37%,
+      #1f2937 63%
+    );
+    animation: shimmer 1.4s infinite;
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: -450px 0;
+    }
+    100% {
+      background-position: 450px 0;
+    }
+  }
+  
