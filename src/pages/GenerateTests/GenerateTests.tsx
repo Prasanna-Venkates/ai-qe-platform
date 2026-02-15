@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./GenerateTests.css";
 import PageSkeleton from "../../components/common/PageSkeleton";
+import { useGenerateTests } from "../../hooks/useGenerateTests";
 
 const tabs = [
   "Manual Test Cases",
@@ -24,32 +25,52 @@ const streamingMessages = [
 
 export default function GenerateTests() {
   const [pageLoading, setPageLoading] = useState(true);
-
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [progress, setProgress] = useState(0);
   const [logs, setLogs] = useState<string[]>([]);
+  const [hasGenerated, setHasGenerated] = useState(false);
 
   const logIndex = useRef(0);
 
-  /* ================= PAGE LOAD SKELETON ================= */
+  const { generate, tests } = useGenerateTests();
 
+  /* ================= PAGE LOAD ================= */
   useEffect(() => {
     const timer = setTimeout(() => setPageLoading(false), 600);
     return () => clearTimeout(timer);
   }, []);
 
   /* ================= START GENERATION ================= */
-
-  const startGeneration = () => {
+  const startGeneration = async () => {
     setIsGenerating(true);
     setProgress(0);
     setLogs([]);
+    setHasGenerated(true);
     logIndex.current = 0;
+
+    const stored = localStorage.getItem("currentRequirement");
+
+    let promptText = "Login feature";
+
+    if (stored) {
+      const req = JSON.parse(stored);
+
+      promptText = `
+Title: ${req.title}
+
+Description:
+${req.description}
+
+Acceptance Criteria:
+${req.criteria}
+`;
+    }
+
+    await generate(promptText);
   };
 
   /* ================= PROGRESS ================= */
-
   useEffect(() => {
     if (!isGenerating) return;
 
@@ -68,7 +89,6 @@ export default function GenerateTests() {
   }, [isGenerating]);
 
   /* ================= STREAMING LOGS ================= */
-
   useEffect(() => {
     if (!isGenerating) return;
 
@@ -83,7 +103,6 @@ export default function GenerateTests() {
   }, [isGenerating]);
 
   /* ================= UI ================= */
-
   return (
     <div className="generate-container">
       {pageLoading ? (
@@ -91,22 +110,21 @@ export default function GenerateTests() {
       ) : (
         <>
           <h1>Generated Test Artifacts</h1>
-
           <p className="subtitle">
             AI-generated test cases based on your requirements
           </p>
 
           {!isGenerating && progress === 0 && (
-            <p className="generate-note">
-              Click the <strong>Generate Tests</strong> button to start AI-driven
-              test generation based on user stories.
-            </p>
-          )}
+            <>
+              <p className="generate-note">
+                Click the <strong>Generate Tests</strong> button to start
+                AI-driven test generation.
+              </p>
 
-          {!isGenerating && progress === 0 && (
-            <button className="generate-btn" onClick={startGeneration}>
-              Generate Tests
-            </button>
+              <button className="generate-btn" onClick={startGeneration}>
+                Generate Tests
+              </button>
+            </>
           )}
 
           {isGenerating && (
@@ -148,7 +166,15 @@ export default function GenerateTests() {
               </div>
 
               <div className="tab-content">
-                {renderContent(activeTab)}
+                {renderContent(activeTab, tests, hasGenerated)}
+              </div>
+
+              {/* 🔵 Demo note */}
+              <div style={demoNote}>
+                <strong>Demo Mode:</strong>  
+                AI responses are simulated for demo stability.  
+                The architecture uses a real service layer and can be switched  
+                to live OpenAI APIs via environment configuration.
               </div>
             </>
           )}
@@ -160,14 +186,21 @@ export default function GenerateTests() {
 
 /* ================= TAB CONTENT ================= */
 
-function renderContent(tab: string) {
+function renderContent(
+  tab: string,
+  tests: string[],
+  hasGenerated: boolean
+) {
   switch (tab) {
     case "Manual Test Cases":
       return (
-        <pre>{`1. Verify login with valid credentials
-2. Verify login with invalid password
-3. Verify error message for invalid user
-4. Verify session persistence`}</pre>
+        <pre>
+          {tests.length
+            ? tests.join("\n")
+            : hasGenerated
+            ? "AI generated no results."
+            : "Click Generate Tests to produce AI test cases."}
+        </pre>
       );
 
     case "Automation (BDD)":
@@ -198,3 +231,15 @@ Scenario: Successful login
       return null;
   }
 }
+
+/* ================= DEMO NOTE STYLE ================= */
+
+const demoNote = {
+  marginTop: "30px",
+  padding: "12px 16px",
+  borderRadius: "8px",
+  background: "#020617",
+  border: "1px solid #1f2937",
+  color: "#94a3b8",
+  fontSize: "13px",
+};

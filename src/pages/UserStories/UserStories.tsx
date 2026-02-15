@@ -3,17 +3,32 @@ import { useNavigate, useParams } from "react-router-dom";
 import PageSkeleton from "../../components/common/PageSkeleton";
 
 export default function UserStories() {
-  const { id } = useParams(); // ✅ MUST match route param
+  const { id } = useParams();
   const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [criteria, setCriteria] = useState("");
 
   const handleSubmit = () => {
     setLoading(true);
 
-    // Simulate AI processing (30 seconds)
+    // 🔵 Save requirement for AI page
+    localStorage.setItem(
+      "currentRequirement",
+      JSON.stringify({
+        title,
+        description,
+        criteria
+      })
+    );
+
+    // simulate processing delay
     setTimeout(() => {
       navigate(`/projects/${id}/generate-tests`);
-    }, 30000);
+    }, 1500);
   };
 
   return (
@@ -27,16 +42,22 @@ export default function UserStories() {
           <input
             placeholder="User Story Title"
             style={input}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           />
 
           <textarea
             placeholder="User Story Description"
             style={textarea}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
           />
 
           <textarea
             placeholder="Acceptance Criteria"
             style={textarea}
+            value={criteria}
+            onChange={(e) => setCriteria(e.target.value)}
           />
 
           <button style={button} onClick={handleSubmit}>
