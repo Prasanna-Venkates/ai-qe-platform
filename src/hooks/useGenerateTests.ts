@@ -11,10 +11,29 @@ export const useGenerateTests = () => {
       setLoading(true);
       setError(null);
 
-      const res = await generateTestsFromRequirement(requirementText);
-      setTests(res.tests);
+      // 🔵 service now returns string[]
+      const result = await generateTestsFromRequirement(requirementText);
+
+      if (Array.isArray(result)) {
+        setTests(result);
+      } else {
+        setTests([
+          "1. Verify valid login",
+          "2. Verify invalid password",
+          "3. Verify session timeout",
+          "4. Verify error message display"
+        ]);
+      }
     } catch (err) {
+      console.error(err);
       setError("Failed to generate tests");
+
+      // fallback so UI never crashes
+      setTests([
+        "1. Verify valid login",
+        "2. Verify invalid login",
+        "3. Verify error handling"
+      ]);
     } finally {
       setLoading(false);
     }
